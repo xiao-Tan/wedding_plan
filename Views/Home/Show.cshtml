@@ -1,0 +1,35 @@
+@model Wedding
+
+@{
+    ViewData["Title"] = "Wedding Planner";
+}
+
+<h1>@Model.Bride and @Model.Bridegroom's Wedding</h1>
+<p class="text-right">
+    <a href="/dashboard/@ViewBag.userId" class="link">DashBoard</a> | <a href="/logout" class="link">Logout</a>
+</p>
+<hr>
+<p>Date: @Model.Date.ToString("MMM dd yyyy")</p>
+<p>Guests:</p>
+<ul>
+    @foreach(var v in @ViewBag.allGuests)
+    {
+        <li>@v.FirstName @v.LastName</li>
+    }
+</ul>
+<p>Location:</p>
+<div id="map"></div>
+<script>  
+    function initMap() {
+        var latitude = @(ViewBag.latitude);
+        var longitude = @(ViewBag.longitude);
+        var location = {lat: latitude, lng: longitude};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: location,
+            zoom: 12
+        });
+        var marker = new google.maps.Marker({position: location, map: map});
+    }
+</script>  
+<script src="https://maps.googleapis.com/maps/api/js?key=[REPLACE_YOUR_OWN_KEY]&callback=initMap"
+    async defer></script>

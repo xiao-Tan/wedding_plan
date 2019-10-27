@@ -1,0 +1,57 @@
+@model List<Wedding>
+
+@{
+    ViewData["Title"] = "Wedding Planner";
+}
+
+<h1>Welcome to the Wedding planner, @ViewBag.username</h1>
+<p class="text-right"><a href="/logout" class="link">Logout</a></p>
+<hr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+        <th scope="col">Wedding Id</th>
+        <th scope="col">Wedding</th>
+        <th scope="col">Date</th>
+        <th scope="col">Guest number</th>
+        <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var v in Model)
+    {
+        <tr>
+        <th scope="row">@v.WeddingId</th>
+        <td><a href="/@ViewBag.userId/show/@v.WeddingId" class="link">@v.Bride & @v.Bridegroom</a></td>
+        <td>@v.Date.ToString("MMM dd yyyy")</td>
+        <td>@v.ManyGuests.Count</td>
+        @if(v.Creator.UserId == @ViewBag.userId)
+        {
+            @if(@ViewBag.joinedWeddings.Contains(v))
+            {
+                <td>
+                    <a href="/@ViewBag.userId/delete/@v.WeddingId" class="link">Delete</a> | <a href="/@ViewBag.userId/unjoin/@v.WeddingId" class="link">Un-RSVP</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a href="/@ViewBag.userId/delete/@v.WeddingId" class="link">Delete</a> | <a href="/@ViewBag.userId/join/@v.WeddingId" class="link">RSVP</a>
+                </td>
+            }            
+        }
+        else if(@ViewBag.joinedWeddings.Contains(v))
+        {
+            
+            <td><a href="/@ViewBag.userId/unjoin/@v.WeddingId" class="link">Un-RSVP</a></td>
+        }
+        else
+        {
+            <td><a href="/@ViewBag.userId/join/@v.WeddingId" class="link">RSVP</a></td>
+        }                   
+        </tr>
+    }
+    </tbody>
+</table>
+<br>
+<a class="btn btn-primary" href="/new/@ViewBag.userId" role="button">Add Wedding</a>

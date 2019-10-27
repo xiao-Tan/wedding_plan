@@ -1,0 +1,44 @@
+@using WeddingPlan.Models
+@model User
+
+<form asp-action="Register" asp-controller="Home" method="post">
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" placeholder="first name">
+        <span asp-validation-for="FirstName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" placeholder="last name">
+        <span asp-validation-for="LastName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" placeholder="email@gmail.com">
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Birthday"></label>
+        <input asp-for="Birthday" class="form-control">
+        <span asp-validation-for="Birthday"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" placeholder="password">
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Confirm"></label>
+        <input asp-for="Confirm" class="form-control" placeholder="confirm password">
+        <span asp-validation-for="Confirm"></span>
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-primary text-right" type="submit" value="Register">  
+    </div>
+</form>
